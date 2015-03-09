@@ -1,14 +1,16 @@
 'use strict';
 
 angular.module('genemapApp', [
-  'ngCookies',
-  'ngResource',
-  'ngSanitize',
-  'ui.router'
+    'ngCookies',
+    'ngResource',
+    'ngSanitize',
+    'ui.router',
+    'angularFileUpload',
 ])
-  .config(function ($stateProvider, $urlRouterProvider, $locationProvider) {
-    $urlRouterProvider
-      .otherwise('/');
 
-    $locationProvider.html5Mode(true);
-  });
+.config(['$stateProvider', '$urlRouterProvider', '$locationProvider',
+    function ($stateProvider, $urlRouterProvider, $locationProvider) {
+        $urlRouterProvider.otherwise('/');
+
+        $locationProvider.html5Mode(true);
+    }]);
