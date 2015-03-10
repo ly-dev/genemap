@@ -9,7 +9,7 @@ angular.module('genemapApp')
                 for (var i = 0; i < files.length; i++) {
                     var file = files[i];
                     $upload.upload({
-                        url: 'upload/url',
+                        url: '/api/genes/upload',
                         file: file
                     }).progress(function (evt) {
                         var progressPercentage = parseInt(100.0 * evt.loaded / evt.total);
