@@ -11,6 +11,7 @@
 'use strict';
 
 var _ = require('lodash');
+var fs = require('fs');
 var Gene = require('./gene.model');
 
 // Get list of genes
@@ -88,17 +89,22 @@ exports.destroy = function (req, res) {
 
 // Upload a json file
 exports.upload = function (req, res) {
-    console.log(req);
-    console.log(req.query);
-    console.log(req.body);
+    req.files.geneJsonFiles.forEach(function (file) {
+        fs.readFile(file.path, function (err, data) {
+            if (err) {
+                return handleError(res, err);
+            }
 
-    var fs = require('fs');
-    var newPath = __dirname + "/dump.log";
-    fs.writeFile(newPath, objToString(req) + objToString(req.params) + objToString(req.query)+ objToString(req.body), function (err) {
-        if (err) {
-            return handleError(res, err);
-        }
-        return res.send(204);
+            var genes = JSON.parse(data);
+
+            // process the uploaded data and save to database
+            console.log(genes.results.length);
+            console.log(genes.results[0]);
+
+            fs.unlinkSync(file.path);
+
+            return res.send(204);
+        });
     });
 };
 

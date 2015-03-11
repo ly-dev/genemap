@@ -4,8 +4,7 @@ angular.module('genemapApp', [
     'ngCookies',
     'ngResource',
     'ngSanitize',
-    'ui.router',
-    'angularFileUpload',
+    'ui.router'
 ])
 
 .config(['$stateProvider', '$urlRouterProvider', '$locationProvider',

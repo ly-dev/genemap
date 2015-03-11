@@ -12,6 +12,16 @@ router.put('/:id', controller.update);
 router.patch('/:id', controller.update);
 router.delete('/:id', controller.destroy);
 
-router.post('/upload', controller.upload);
+// Setup file upload
+var os = require('os');
+var multer = require('multer')
+router.post('/upload', [multer({
+        dest: os.tmpdir(),
+        putSingleFilesInArray: true,
+        rename: function (fieldname, filename) {
+            return filename.replace(/\W+/g, '-').toLowerCase() + Date.now();
+        },
+    }),
+    controller.upload]);
 
 module.exports = router;
